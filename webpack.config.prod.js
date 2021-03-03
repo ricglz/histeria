@@ -18,7 +18,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production'),
-        'SERVER_URL': JSON.stringify('https://atecomic.wcpan.me'),
+        'SERVER_URL': JSON.stringify('https://ricglz.github.io/histeria'),
       }
     }),
   ],
