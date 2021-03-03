@@ -19,7 +19,7 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('development'),
         'SERVER_URL': JSON.stringify((process.env.SERVER === '1') ?
-          'https://atecomic.wcpan.me' : ''),
+          'https://ricglz.github.io/histeria' : ''),
       }
     }),
   ],
