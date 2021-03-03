@@ -1,5 +1,5 @@
 const App = {
-  title: 'Comiz',
+  title: 'Histeria',
 }
 
 export { App }

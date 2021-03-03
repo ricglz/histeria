@@ -27,7 +27,7 @@ export function fetchComic(comicId) {
       return dispatch({
         type: 'FETCH_COMIC',
         payload: new Promise((resolve, reject) => {
-          fetch(`${HOST}/api/v1/comics/${comicId}`)
+          fetch(`${HOST}/api/v1/comics/${comicId}/data`)
             .then(response => response.json())
             .then(resolve)
             .catch(reject)
@@ -48,7 +48,7 @@ export function fetchEpisodes(comicId) {
             comicId,
           },
           promise: new Promise((resolve, reject) => {
-            fetch(`${HOST}/api/v1/comics/${comicId}/episodes`)
+            fetch(`${HOST}/api/v1/comics/${comicId}/episodes/data`)
               .then(response => response.json())
               .then(resolve)
               .catch(reject)
@@ -71,7 +71,7 @@ export function fetchPages(comicId, episodeId) {
             episodeId,
           },
           promise: new Promise((resolve, reject) => {
-            fetch(`${HOST}/api/v1/comics/${comicId}/episodes/${episodeId}/pages`)
+            fetch(`${HOST}/api/v1/comics/${comicId}/episodes/${episodeId}/pages/data`)
               .then(response => response.json())
               .then((data) => {
                 dispatch(markRead(comicId, episodeId))

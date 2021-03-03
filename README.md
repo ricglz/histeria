@@ -1,4 +1,4 @@
-# Comiz
+# Histeria
 
 [![Build Status](https://img.shields.io/travis/rickychien/comiz/master.svg?style=flat-square)](https://travis-ci.org/rickychien/comiz)
 [![Coverage Status](https://img.shields.io/coveralls/rickychien/comiz/master.svg?style=flat-square)](https://coveralls.io/github/rickychien/comiz)
