@@ -9,18 +9,18 @@ import SelectFieldContainer from '../SelectField'
 import styles from './ComicList.css'
 
 class ComicList extends React.PureComponent {
-  static defaultProps = {
-    comics: [],
-    isFetching: false,
-    fetchError: false,
-    onComicItemClick: null,
-  }
-
   static propTypes = {
     comics: PropTypes.array,
     isFetching: PropTypes.bool,
     fetchError: PropTypes.bool,
     onComicItemClick: PropTypes.func,
+  }
+
+  static defaultProps = {
+    comics: [],
+    isFetching: false,
+    fetchError: false,
+    onComicItemClick: null,
   }
 
   render() {
@@ -33,7 +33,7 @@ class ComicList extends React.PureComponent {
 
     return (
       <div>
-        <AppBar materialIcon="fingerprint" title="Comiz">
+        <AppBar materialIcon="fingerprint" title="Histeria">
           <SelectFieldContainer />
           <SearchBarContainer />
         </AppBar>

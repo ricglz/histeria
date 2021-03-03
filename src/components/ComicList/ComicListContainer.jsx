@@ -59,8 +59,8 @@ class ComicListContainer extends React.Component {
     }
   }
 
-  onComicItemClick = (comicId) => {
-    this.props.dispatch(Actions.updateComicDrawer(true, comicId))
+  onComicItemClick = (cid) => {
+    this.props.history.push(`/viewer?cid=${cid}&eid=1`)
   }
 
   getComicsPerPage = () => {

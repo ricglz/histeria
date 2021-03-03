@@ -4,14 +4,14 @@ import React from 'react'
 import styles from './ComicItem.css'
 
 class ComicItem extends React.PureComponent {
-  static defaultProps = {
-    comic: {},
-    onClick: null,
-  }
-
   static propTypes = {
     comic: PropTypes.object,
     onClick: PropTypes.func,
+  }
+
+  static defaultProps = {
+    comic: {},
+    onClick: null,
   }
 
   onComicItemClick = () => {

@@ -9,18 +9,6 @@ import ComicEpisodeContainer from '../ComicEpisode'
 import styles from './ComicDrawer.css'
 
 class ComicDrawer extends React.Component {
-  static defaultProps = {
-    open: false,
-    width: 300,
-    isFetching: false,
-    fetchError: false,
-    comic: {},
-    episodes: [],
-    favorite: false,
-    onCloseClick: null,
-    onFavoriteClick: null,
-  }
-
   static propTypes = {
     open: PropTypes.bool,
     width: PropTypes.number,
@@ -31,6 +19,18 @@ class ComicDrawer extends React.Component {
     favorite: PropTypes.bool,
     onCloseClick: PropTypes.func,
     onFavoriteClick: PropTypes.func,
+  }
+
+  static defaultProps = {
+    open: false,
+    width: 300,
+    isFetching: false,
+    fetchError: false,
+    comic: {},
+    episodes: [],
+    favorite: false,
+    onCloseClick: null,
+    onFavoriteClick: null,
   }
 
   state = {
