@@ -17,22 +17,18 @@ class ComicViewerContainer extends React.Component {
     pages: {},
     push: null,
     fetchComic: null,
-    fetchEpisodes: null,
     fetchPages: null,
-    updateComicDrawer: null,
   }
 
   static propTypes = {
-    comicId: PropTypes.number,
+    comicId: PropTypes.string,
     comic: PropTypes.object,
-    episodeId: PropTypes.number,
+    episodeId: PropTypes.string,
     episodes: PropTypes.object,
     pages: PropTypes.object,
     push: PropTypes.func,
     fetchComic: PropTypes.func,
-    fetchEpisodes: PropTypes.func,
     fetchPages: PropTypes.func,
-    updateComicDrawer: PropTypes.func,
   }
 
   componentDidMount() {
@@ -48,7 +44,6 @@ class ComicViewerContainer extends React.Component {
   }
 
   onComicDrawerClick = () => {
-    this.props.updateComicDrawer(true, this.props.comicId)
   }
 
   onPrevEpisodeClick = () => this.handleEpisodeNavigation(-1)
@@ -80,7 +75,6 @@ class ComicViewerContainer extends React.Component {
     const {
       comic,
       fetchComic,
-      fetchEpisodes,
       fetchPages,
     } = this.props
 
@@ -88,10 +82,6 @@ class ComicViewerContainer extends React.Component {
 
     if (!nextProps && !comic) {
       fetchComic(comicId)
-    }
-
-    if (comicId !== episodes.comicId) {
-      fetchEpisodes(comicId)
     }
 
     if (comicId !== pages.comicId || episodeId !== pages.episodeId) {
@@ -117,7 +107,6 @@ class ComicViewerContainer extends React.Component {
         onPrevEpisodeClick={ this.onPrevEpisodeClick }
         onNextEpisodeClick={ this.onNextEpisodeClick }
         onBackClick={ this.onBackClick }
-        onComicDrawerClick={ this.onComicDrawerClick }
       />
     )
   }
@@ -129,10 +118,10 @@ function mapStateToProps(state, ownProps) {
   const eid = query.get('eid')
 
   return {
-    comicId: parseInt(cid, 10),
-    comic: state.comics.entries.get(parseInt(cid, 10)),
+    comicId: cid,
+    comic: {},
     comicViewer: state.comicViewer,
-    episodeId: parseInt(eid, 10),
+    episodeId: eid,
     episodes: state.episodes,
     pages: state.pages,
     push: ownProps.history.push,
@@ -144,14 +133,8 @@ function mapDispatchToProps(dispatch) {
     fetchComic(comicId) {
       dispatch(Actions.fetchComic(comicId))
     },
-    fetchEpisodes(comicId) {
-      dispatch(Actions.fetchEpisodes(comicId))
-    },
     fetchPages(comicId, episodeId) {
       dispatch(Actions.fetchPages(comicId, episodeId))
-    },
-    updateComicDrawer(open, comicId) {
-      dispatch(Actions.updateComicDrawer(open, comicId))
     },
   }
 }

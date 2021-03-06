@@ -7,19 +7,6 @@ import FlatButton from '../FlatButton'
 import styles from './ComicViewer.css'
 
 class ComicViewer extends React.PureComponent {
-  static defaultProps = {
-    pages: [],
-    episode: {},
-    isFetching: false,
-    fetchError: false,
-    prevEpisode: null,
-    nextEpisode: null,
-    onPrevEpisodeClick: null,
-    onNextEpisodeClick: null,
-    onBackClick: null,
-    onComicDrawerClick: null,
-  }
-
   static propTypes = {
     pages: PropTypes.array,
     episode: PropTypes.object,
@@ -30,7 +17,18 @@ class ComicViewer extends React.PureComponent {
     onPrevEpisodeClick: PropTypes.func,
     onNextEpisodeClick: PropTypes.func,
     onBackClick: PropTypes.func,
-    onComicDrawerClick: PropTypes.func,
+  }
+
+  static defaultProps = {
+    pages: [],
+    episode: {},
+    isFetching: false,
+    fetchError: false,
+    prevEpisode: null,
+    nextEpisode: null,
+    onPrevEpisodeClick: null,
+    onNextEpisodeClick: null,
+    onBackClick: null,
   }
 
   render() {
@@ -44,14 +42,11 @@ class ComicViewer extends React.PureComponent {
       onPrevEpisodeClick,
       onNextEpisodeClick,
       onBackClick,
-      onComicDrawerClick,
     } = this.props
 
     return (
       <div className={ styles.comicViewer }>
-        <AppBar materialIcon="arrow_back" onLogoClick={ onBackClick } transparent>
-          <FlatButton materialIcon="book" onClick={ onComicDrawerClick } />
-        </AppBar>
+        <AppBar materialIcon="arrow_back" onLogoClick={ onBackClick } transparent />
         {
           (() => {
             if (isFetching) {

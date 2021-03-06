@@ -1,4 +1,4 @@
-// import { markRead } from './userPrefs'
+import { db } from '../constants/firebase'
 
 const HOST = process.env.SERVER_URL
 
@@ -22,7 +22,27 @@ function genericFetch(url, type) {
 }
 
 export function fetchComics() {
-  return genericFetch('api/v1/updates', 'FETCH_COMICS')
+  return (dispatch, getState) => {
+    if (!getState().comics.isFetching) {
+      return dispatch({
+        type: 'FETCH_COMICS',
+        payload: {
+          promise: new Promise((resolve, reject) => {
+            db.collection('comics').get().then((snapshot) => {
+              const data = []
+              snapshot.forEach((doc) => {
+                const fullData = { id: doc.id, ...doc.data() }
+                data.push(fullData)
+              })
+              return data
+            }).then(resolve)
+              .catch(reject)
+          }),
+        },
+      })
+    }
+    return false
+  }
 }
 
 export function fetchComic(comicId) {
@@ -34,6 +54,28 @@ export function fetchEpisodes(comicId) {
 }
 
 export function fetchPages(comicId, episodeId) {
-  const url = `api/v1/comics/${comicId}/episodes/${episodeId}/pages/data`
-  return genericFetch(url, 'FETCH_PAGES')
+  return (dispatch, getState) => {
+    if (!getState().comics.isFetching) {
+      return dispatch({
+        type: 'FETCH_PAGES',
+        payload: {
+          data: {
+            comicId,
+            episodeId,
+          },
+          promise: new Promise((resolve, reject) => {
+            const ref = db.collection('comics').doc(comicId)
+            ref.get().then(doc => (doc.exists ? doc.data().pages : []))
+              .then((data) => {
+                console.log(data)
+                return data
+              })
+              .then(resolve)
+              .catch(reject)
+          }),
+        },
+      })
+    }
+    return false
+  }
 }
