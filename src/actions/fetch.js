@@ -28,7 +28,7 @@ export function fetchComics() {
         type: 'FETCH_COMICS',
         payload: {
           promise: new Promise((resolve, reject) => {
-            db.collection('comics').get().then((snapshot) => {
+            db.collection('comics').orderBy('title').get().then((snapshot) => {
               const data = []
               snapshot.forEach((doc) => {
                 const fullData = { id: doc.id, ...doc.data() }
