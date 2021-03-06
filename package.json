@@ -4,14 +4,15 @@
   "description": "Comic viewer",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && NODE_ENV=production $(npm bin)/webpack --progress --colors --config ./webpack.config.prod.js && cp ./src/index.html ./src/favicon.png ./dist/",
+    "build": "npm run clean && npm run webpack && cp -r ./src/index.html ./src/favicon.png ./src/api ./dist/",
     "clean": "rm -rf ./dist",
-    "lint": "$(npm bin)/eslint --fix 'src/**/*.+(js|jsx)'",
+    "coverage": "nyc --extension .jsx npm test",
+    "coveralls": "nyc --extension .jsx --reporter=text-lcov npm test | $(npm bin)/coveralls",
+    "gh-pages": "git subtree push --prefix dist origin gh-pages",
+    "lint": "eslint --fix 'src/**/*.+(js|jsx)'",
     "test": "NODE_ENV=test SERVER_URL='http://localhost:8000' $(npm bin)/mocha --require ./test/setup.js --compilers js:babel-core/register --recursive",
     "test:watch": "npm test -- --watch",
-    "coverage": "$(npm bin)/nyc --extension .jsx npm test",
-    "coveralls": "$(npm bin)/nyc --extension .jsx --reporter=text-lcov npm test | $(npm bin)/coveralls",
-    "gh-pages": "git subtree push --prefix dist origin gh-pages"
+    "webpack": "NODE_ENV=production webpack --progress --colors --config ./webpack.config.prod.js "
   },
   "author": "Ricky Chien <ricky060709@gmail.com>",
   "license": "MIT",
