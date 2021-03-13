@@ -4,7 +4,7 @@
   "description": "Comic viewer",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && npm run webpack && cp -r ./src/index.html ./src/favicon.png ./CNAME ./dist/",
+    "build": "npm run clean && npm run webpack && cp -r ./src/index.html ./src/favicon.png ./dist/",
     "clean": "rm -rf ./dist",
     "coverage": "nyc --extension .jsx npm test",
     "coveralls": "nyc --extension .jsx --reporter=text-lcov npm test | $(npm bin)/coveralls",
