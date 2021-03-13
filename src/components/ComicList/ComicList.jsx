@@ -57,20 +57,25 @@ class ComicList extends React.PureComponent {
             }
 
             return (
-              <div className={ styles.container }>
-                <div className={ styles.comicList }>
-                  <div className={ styles.comicListInner }>
-                    {
-                      comics.map(comic => (
-                        <ComicItem
-                          key={ comic.id }
-                          comic={ comic }
-                          onClick={ onComicItemClick }
-                        />
-                      ))
-                    }
+              <div className={ styles.footerContainer }>
+                <div className={ styles.container }>
+                  <div className={ styles.comicList }>
+                    <div className={ styles.comicListInner }>
+                      {
+                        comics.map(comic => (
+                          <ComicItem
+                            key={ comic.id }
+                            comic={ comic }
+                            onClick={ onComicItemClick }
+                          />
+                        ))
+                      }
+                    </div>
                   </div>
                 </div>
+                <footer className={ styles.footer }>
+                  <span>Derechos reservados del autor</span>
+                </footer>
               </div>
             )
           })()
