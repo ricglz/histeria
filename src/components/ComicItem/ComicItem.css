@@ -10,21 +10,32 @@
   width: 250px;
 }
 
-.title {
-  font-size: 15px;
-  color: white;
-  display: flex;
-  padding: 0 10px;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 48px;
+.comicDescription {
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.7) 0%,
     rgba(0, 0, 0, 0.3) 70%,
     rgba(0, 0, 0, 0) 100%
     );
+  color: white;
+  display: flex;
+  font-size: 15px;
+  height: 48px;
+  left: 0;
+  justify-content: space-between;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.comicDescription span {
+  width: 75px;
+}
+
+.views {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 40px;
 }
