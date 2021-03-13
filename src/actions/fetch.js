@@ -1,4 +1,5 @@
 import { db } from '../constants/firebase'
+import { markRead } from './userPrefs'
 
 const HOST = process.env.SERVER_URL
 
@@ -21,6 +22,13 @@ function genericFetch(url, type) {
   }
 }
 
+function getDocFullData(doc) {
+  if (doc.exists) {
+    return { id: doc.id, ...doc.data() }
+  }
+  return {}
+}
+
 export function fetchComics() {
   return (dispatch, getState) => {
     if (!getState().comics.isFetching) {
@@ -28,14 +36,15 @@ export function fetchComics() {
         type: 'FETCH_COMICS',
         payload: {
           promise: new Promise((resolve, reject) => {
-            db.collection('comics').orderBy('title').get().then((snapshot) => {
+            db.orderBy('order').get().then((snapshot) => {
               const data = []
               snapshot.forEach((doc) => {
-                const fullData = { id: doc.id, ...doc.data() }
+                const fullData = getDocFullData(doc)
                 data.push(fullData)
               })
               return data
-            }).then(resolve)
+            })
+              .then(resolve)
               .catch(reject)
           }),
         },
@@ -46,7 +55,20 @@ export function fetchComics() {
 }
 
 export function fetchComic(comicId) {
-  return genericFetch(`api/v1/comics/${comicId}/data`, 'FETCH_COMIC')
+  return (dispatch, getState) => {
+    if (!getState().comics.isFetching) {
+      return dispatch({
+        type: 'FETCH_COMIC',
+        payload: {
+          promise: new Promise((resolve, reject) => {
+            const ref = db.doc(comicId)
+            ref.get().then(getDocFullData).then(resolve).catch(reject)
+          }),
+        },
+      })
+    }
+    return false
+  }
 }
 
 export function fetchEpisodes(comicId) {
@@ -55,7 +77,7 @@ export function fetchEpisodes(comicId) {
 
 export function fetchPages(comicId, episodeId) {
   return (dispatch, getState) => {
-    if (!getState().comics.isFetching) {
+    if (!getState().pages.isFetching) {
       return dispatch({
         type: 'FETCH_PAGES',
         payload: {
@@ -64,13 +86,12 @@ export function fetchPages(comicId, episodeId) {
             episodeId,
           },
           promise: new Promise((resolve, reject) => {
-            const ref = db.collection('comics').doc(comicId)
+            const ref = db.doc(comicId)
             ref.get().then(doc => (doc.exists ? doc.data().pages : []))
               .then((data) => {
-                console.log(data)
-                return data
+                dispatch(markRead(comicId, episodeId))
+                resolve(data)
               })
-              .then(resolve)
               .catch(reject)
           }),
         },

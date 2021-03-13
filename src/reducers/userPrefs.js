@@ -1,3 +1,5 @@
+import { db, increment } from '../constants/firebase'
+
 const initialState = {
   favorites: [],
   reads: [],
@@ -20,13 +22,14 @@ function markRead(reads, comicId, episodeId) {
     read.comicId === comicId && read.episodeId === episodeId
   ))
 
-  if (!found) {
-    const newReads = [...reads]
-    newReads.push({ comicId, episodeId })
-    localStorage.setItem('userPrefs.reads', JSON.stringify(newReads))
-    return newReads
+  if (found != null) {
+    return reads
   }
-  return reads
+  db.doc(comicId).update({ views: increment(1) })
+  const newReads = [...reads]
+  newReads.push({ comicId, episodeId })
+  localStorage.setItem('userPrefs.reads', JSON.stringify(newReads))
+  return newReads
 }
 
 function unmarkRead(reads, comicId, episodeId) {
