@@ -33,7 +33,13 @@ class ComicItem extends React.PureComponent {
         onKeyPress={ this.onComicItemClick }
       >
         <img className={ styles.img } src={ comic.coverUrl } alt="cover" />
-        <div className={ styles.title }>{ comic.title }</div>
+        <div className={ styles.comicDescription }>
+          <span>{ comic.title }</span>
+          <div className={ styles.views }>
+            { comic.views }
+            <i className="material-icons">visibility</i>
+          </div>
+        </div>
       </div>
     )
   }

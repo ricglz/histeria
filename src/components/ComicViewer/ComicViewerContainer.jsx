@@ -9,26 +9,28 @@ import Actions from '../../actions'
 import { App } from '../../constants'
 
 class ComicViewerContainer extends React.Component {
-  static defaultProps = {
-    comicId: 0,
-    comic: {},
-    episodeId: 0,
-    episodes: {},
-    pages: {},
-    push: null,
-    fetchComic: null,
-    fetchPages: null,
-  }
-
   static propTypes = {
     comicId: PropTypes.string,
     comic: PropTypes.object,
+    comics: PropTypes.object,
     episodeId: PropTypes.string,
     episodes: PropTypes.object,
     pages: PropTypes.object,
     push: PropTypes.func,
-    fetchComic: PropTypes.func,
+    fetchComics: PropTypes.func,
     fetchPages: PropTypes.func,
+  }
+
+  static defaultProps = {
+    comicId: 0,
+    comic: {},
+    comics: [],
+    episodeId: 0,
+    episodes: {},
+    pages: {},
+    push: null,
+    fetchComics: null,
+    fetchPages: null,
   }
 
   componentDidMount() {
@@ -50,17 +52,16 @@ class ComicViewerContainer extends React.Component {
 
   onNextEpisodeClick = () => this.handleEpisodeNavigation(+1)
 
-  getNextEpisodeIdByOffset = (offset) => {
-    const { episodeId, episodes } = this.props
-    const episodeIds = Array.from(episodes.entries, val => val[0])
-    return episodeIds[episodeIds.indexOf(episodeId) + offset]
+  getNextByOffset = (offset) => {
+    const { comicId, comics } = this.props
+    const ids = Array.from(comics.entries, val => val[0])
+    return ids[ids.indexOf(comicId) + offset]
   }
 
   handleEpisodeNavigation = (offset) => {
-    const { comicId, push } = this.props
-    const nextEpisodeId = this.getNextEpisodeIdByOffset(offset)
-    if (nextEpisodeId) {
-      push(`/viewer?cid=${comicId}&eid=${nextEpisodeId}`)
+    const nextId = this.getNextByOffset(offset)
+    if (nextId) {
+      this.props.push(`/viewer?cid=${nextId}&eid=1`)
     }
   }
 
@@ -68,33 +69,34 @@ class ComicViewerContainer extends React.Component {
     const {
       comicId,
       episodeId,
-      episodes,
       pages,
     } = nextProps || this.props
 
     const {
       comic,
-      fetchComic,
+      fetchComics,
       fetchPages,
     } = this.props
 
     if (!comicId || !episodeId) return
 
-    if (!nextProps && !comic) {
-      fetchComic(comicId)
+    if (nextProps == null && (comic == null || comic.title == null)) {
+      fetchComics()
     }
 
     if (comicId !== pages.comicId || episodeId !== pages.episodeId) {
       fetchPages(comicId, episodeId)
     }
 
-    const episode = episodes.entries.get(episodeId)
-    document.title = (comic && episode) ?
-      `${comic.title} - ${episode.title} - ${App.title}` : App.title
+    document.title = (comic != null) ? comic.title || '' : App.title
   }
 
   render() {
-    const { episodeId, episodes: { entries: episodes }, pages } = this.props
+    const {
+      episodeId, comics: { entries: comics }, episodes: { entries: episodes }, pages,
+    } = this.props
+    const prevEpisode = comics.get(this.getNextByOffset(-1))
+    const nextEpisode = comics.get(this.getNextByOffset(+1))
 
     return (
       <ComicViewer
@@ -102,8 +104,8 @@ class ComicViewerContainer extends React.Component {
         episode={ episodes.get(episodeId) }
         isFetching={ pages.isFetching }
         fetchError={ pages.fetchError }
-        prevEpisode={ episodes.get(this.getNextEpisodeIdByOffset(-1)) }
-        nextEpisode={ episodes.get(this.getNextEpisodeIdByOffset(+1)) }
+        prevEpisode={ prevEpisode }
+        nextEpisode={ nextEpisode }
         onPrevEpisodeClick={ this.onPrevEpisodeClick }
         onNextEpisodeClick={ this.onNextEpisodeClick }
         onBackClick={ this.onBackClick }
@@ -116,22 +118,26 @@ function mapStateToProps(state, ownProps) {
   const query = new URLSearchParams(ownProps.location.search)
   const cid = query.get('cid')
   const eid = query.get('eid')
+  const {
+    comics, comicViewer, episodes, pages,
+  } = state
 
   return {
     comicId: cid,
-    comic: {},
-    comicViewer: state.comicViewer,
+    comic: comics.entries.get(cid),
+    comics,
+    comicViewer,
     episodeId: eid,
-    episodes: state.episodes,
-    pages: state.pages,
+    episodes,
+    pages,
     push: ownProps.history.push,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchComic(comicId) {
-      dispatch(Actions.fetchComic(comicId))
+    fetchComics() {
+      dispatch(Actions.fetchComics())
     },
     fetchPages(comicId, episodeId) {
       dispatch(Actions.fetchPages(comicId, episodeId))

@@ -48,3 +48,14 @@
   color: var(--main-color);
   font-size: 20px;
 }
+
+.managerRow {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}

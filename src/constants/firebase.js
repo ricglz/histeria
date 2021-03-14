@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+import 'firebase/analytics'
 import 'firebase/firestore'
 
 const firebaseConfig = {
@@ -13,4 +14,12 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-export const db = firebase.firestore()
+// export const analytics = firebase.analytics()
+
+firebase.analytics()
+
+const { firestore } = firebase
+
+export const db = firestore().collection('comics')
+
+export const { increment } = firestore.FieldValue

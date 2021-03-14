@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import AppBar from '../AppBar'
-import FlatButton from '../FlatButton'
+import EpisodeManager from './EpisodesManager'
 
 import styles from './ComicViewer.css'
 
@@ -71,26 +71,12 @@ class ComicViewer extends React.PureComponent {
                 <div className={ styles.title }>
                   { episode.title }
                 </div>
-                {
-                  prevEpisode && (
-                    <FlatButton
-                      materialIcon="chevron_left"
-                      extraStyles={ styles.episodeButton }
-                      title={ prevEpisode.title }
-                      onClick={ onPrevEpisodeClick }
-                    />
-                  )
-                }
-                {
-                  nextEpisode && (
-                    <FlatButton
-                      materialIcon="chevron_right"
-                      extraStyles={ styles.episodeButton }
-                      title={ nextEpisode.title }
-                      onClick={ onNextEpisodeClick }
-                    />
-                  )
-                }
+                <EpisodeManager
+                  prevEpisode={ prevEpisode }
+                  nextEpisode={ nextEpisode }
+                  onPrevEpisodeClick={ onPrevEpisodeClick }
+                  onNextEpisodeClick={ onNextEpisodeClick }
+                />
                 <div className={ styles.pages }>
                   {
                     pages.map(page => (
@@ -103,26 +89,12 @@ class ComicViewer extends React.PureComponent {
                     ))
                   }
                 </div>
-                {
-                  prevEpisode && (
-                    <FlatButton
-                      materialIcon="chevron_left"
-                      extraStyles={ styles.episodeButton }
-                      title={ prevEpisode.title }
-                      onClick={ onPrevEpisodeClick }
-                    />
-                  )
-                }
-                {
-                  nextEpisode && (
-                    <FlatButton
-                      materialIcon="chevron_right"
-                      extraStyles={ styles.episodeButton }
-                      title={ nextEpisode.title }
-                      onClick={ onNextEpisodeClick }
-                    />
-                  )
-                }
+                <EpisodeManager
+                  prevEpisode={ prevEpisode }
+                  nextEpisode={ nextEpisode }
+                  onPrevEpisodeClick={ onPrevEpisodeClick }
+                  onNextEpisodeClick={ onNextEpisodeClick }
+                />
               </div>
             )
           })()
