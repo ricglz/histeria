@@ -1,23 +1,24 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import logo from '../../images/logo.png'
 import styles from './AppBar.css'
 
 class AppBar extends React.PureComponent {
-  static defaultProps = {
-    materialIcon: null,
-    title: null,
-    transparent: false,
-    onLogoClick: null,
-    children: null,
-  }
-
   static propTypes = {
     materialIcon: PropTypes.string,
     title: PropTypes.string,
     transparent: PropTypes.bool,
     onLogoClick: PropTypes.func,
     children: PropTypes.node,
+  }
+
+  static defaultProps = {
+    materialIcon: null,
+    title: null,
+    transparent: false,
+    onLogoClick: null,
+    children: null,
   }
 
   render() {
@@ -43,10 +44,7 @@ class AppBar extends React.PureComponent {
           onClick={ onLogoClick }
           onKeyPress={ onLogoClick }
         >
-          <div className={ styles.icon }>
-            <i className="material-icons">{ materialIcon }</i>
-          </div>
-          { title && <h1 className={ styles.title }>{ title }</h1> }
+          <img src={ logo } alt="Logo Histeria" />
         </div>
         <div className={ styles.children }>{ children }</div>
       </div>

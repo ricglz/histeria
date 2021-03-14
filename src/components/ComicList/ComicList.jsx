@@ -4,8 +4,8 @@ import React from 'react'
 import AppBar from '../AppBar'
 import ComicItem from '../ComicItem'
 import SearchBarContainer from '../SearchBar'
-import SelectFieldContainer from '../SelectField'
 
+import banner from '../../images/banner.jpg'
 import styles from './ComicList.css'
 
 class ComicList extends React.PureComponent {
@@ -34,7 +34,6 @@ class ComicList extends React.PureComponent {
     return (
       <div>
         <AppBar materialIcon="fingerprint" title="Histeria">
-          <SelectFieldContainer />
           <SearchBarContainer />
         </AppBar>
         {
@@ -59,6 +58,9 @@ class ComicList extends React.PureComponent {
             return (
               <div className={ styles.footerContainer }>
                 <div className={ styles.container }>
+                  <div className={ styles.banner }>
+                    <img alt="Website banner" src={ banner } />
+                  </div>
                   <div className={ styles.comicList }>
                     <div className={ styles.comicListInner }>
                       {

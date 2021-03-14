@@ -38,6 +38,11 @@
   color: white;
 }
 
+.logo img {
+  height: 50px;
+  width: auto;
+}
+
 .icon {
   display: inline-block;
 }
