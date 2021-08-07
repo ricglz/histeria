@@ -1,21 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { SocialIcon } from 'react-social-icons'
 
 import logo from '../../images/logo.png'
 import styles from './AppBar.css'
 
 class AppBar extends React.PureComponent {
   static propTypes = {
-    materialIcon: PropTypes.string,
-    title: PropTypes.string,
     transparent: PropTypes.bool,
     onLogoClick: PropTypes.func,
     children: PropTypes.node,
   }
 
   static defaultProps = {
-    materialIcon: null,
-    title: null,
     transparent: false,
     onLogoClick: null,
     children: null,
@@ -23,8 +20,6 @@ class AppBar extends React.PureComponent {
 
   render() {
     const {
-      materialIcon,
-      title,
       transparent,
       onLogoClick,
       children,
@@ -32,7 +27,7 @@ class AppBar extends React.PureComponent {
 
     let appBarStyles = styles.appBar
     if (transparent) {
-      appBarStyles = appBarStyles.concat(` ${styles.appBarTransparent}`)
+      appBarStyles += ` ${styles.appBarTransparent}`
     }
 
     return (
@@ -46,7 +41,23 @@ class AppBar extends React.PureComponent {
         >
           <img src={ logo } alt="Logo Histeria" />
         </div>
-        <div className={ styles.children }>{ children }</div>
+        <div className={ styles.children }>
+          <div className={ styles.icons }>
+            <SocialIcon
+              url="https://www.instagram.com/plumanolo/"
+              bgColor="#1c1f2b"
+              fgColor="#ddd"
+              style={ { height: 35, width: 35 } }
+            />
+            <SocialIcon
+              url="https://www.tiktok.com/@plumanolo"
+              bgColor="#1c1f2b"
+              fgColor="#ddd"
+              style={ { height: 35, width: 35 } }
+            />
+          </div>
+          { children }
+        </div>
       </div>
     )
   }

@@ -6563,6 +6563,13 @@ react-router@^4.2.0, react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
+react-social-icons@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/react-social-icons/-/react-social-icons-5.5.1.tgz#dcac503c91f25737e2dcd90f69489401c972e417"
+  integrity sha512-JBq4dbtthfN+PSUOw4mCu8VDvx+tCce3GcGlAb0xipfd4xmwwVBTLLYpNhkYcMFfCyK6E75XHeY/EwvIRdYJiA==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-swipeable@^4.1.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-4.3.2.tgz#8bacfd17f74bd24bdd770fc522739dbdc9a9d493"

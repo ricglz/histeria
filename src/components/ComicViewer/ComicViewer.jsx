@@ -47,7 +47,7 @@ class ComicViewer extends React.PureComponent {
 
     return (
       <div className={ styles.comicViewer }>
-        <AppBar materialIcon="arrow_back" onLogoClick={ onBackClick } transparent />
+        <AppBar onLogoClick={ onBackClick } transparent />
         {
           (() => {
             if (isFetching) {

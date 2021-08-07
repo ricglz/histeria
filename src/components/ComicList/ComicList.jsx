@@ -33,7 +33,7 @@ class ComicList extends React.PureComponent {
 
     return (
       <div>
-        <AppBar materialIcon="fingerprint" title="Histeria">
+        <AppBar>
           <SearchBarContainer />
         </AppBar>
         {

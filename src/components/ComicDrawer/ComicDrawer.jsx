@@ -159,7 +159,7 @@ class ComicDrawer extends React.Component {
           onSwiping={ this.onSwiping }
           onSwiped={ this.onSwiped }
         >
-          <AppBar materialIcon="close" onLogoClick={ this.handleClose } />
+          <AppBar onLogoClick={ this.handleClose } />
           {
             (() => {
               if (isFetching || (!comic.mtime && !fetchError)) {
