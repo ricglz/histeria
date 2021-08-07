@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Carousel } from 'react-responsive-carousel'
 
 import AppBar from '../AppBar'
 import EpisodeManager from './EpisodesManager'
@@ -77,7 +78,7 @@ class ComicViewer extends React.PureComponent {
                   onPrevEpisodeClick={ onPrevEpisodeClick }
                   onNextEpisodeClick={ onNextEpisodeClick }
                 />
-                <div className={ styles.pages }>
+                <Carousel showThumbs={ false }>
                   {
                     pages.map(page => (
                       <img
@@ -88,7 +89,7 @@ class ComicViewer extends React.PureComponent {
                       />
                     ))
                   }
-                </div>
+                </Carousel>
                 <EpisodeManager
                   prevEpisode={ prevEpisode }
                   nextEpisode={ nextEpisode }

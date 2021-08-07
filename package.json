@@ -28,6 +28,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
+    "react-responsive-carousel": "^3.2.20",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-swipeable": "^4.1.0",
