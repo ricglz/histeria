@@ -1,1 +1,1 @@
-yarn run build && git add --all && git commit -m "New build version" && yarn gh-pages
+yarn run build && cp -r dist ../gh-pages && cd ../gh-pages && git add -a && git commit

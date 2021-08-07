@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run clean && npm run webpack && npm run copy-files",
     "clean": "rm -rf ./dist",
-    "copy-files": "cp -r ./src/index.html ./src/favicon.png ./src/CNAME ./src/robots.txt ./dist/",
+    "copy-files": "cp -r ./src/index.html ./src/favicon.png ./src/CNAME ./src/robots.txt ./src/assets ./dist/",
     "coverage": "nyc --extension .jsx npm test",
     "coveralls": "nyc --extension .jsx --reporter=text-lcov npm test | $(npm bin)/coveralls",
     "gh-pages": "git subtree push --prefix dist origin gh-pages",
