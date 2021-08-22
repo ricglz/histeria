@@ -78,7 +78,7 @@ class ComicViewer extends React.PureComponent {
                   onPrevEpisodeClick={ onPrevEpisodeClick }
                   onNextEpisodeClick={ onNextEpisodeClick }
                 />
-                <Carousel showThumbs={ false }>
+                <Carousel showThumbs={ false } swipeable={ false }>
                   {
                     pages.map(page => (
                       <img
